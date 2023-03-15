@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: ms1
-          image: ms1:v4
+          image: machacr.azurecr.io/ms1
           imagePullPolicy: Never
           ports:
             - containerPort: 8087
