@@ -2,6 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: zookeeper-deploy
+  namespace: mach
 spec:
   selector:
     matchLabels:
@@ -26,6 +27,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: zoo1
+  namespace: mach
   labels:
     app: zookeeper
 spec:
