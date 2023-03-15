@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "javaType": "deloitte.machified.productwebhook.model.ProductDTO",
+  "properties": {
+	"itemId": {
+      "type": "string"
+    },
+    "storeNumber": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "priceType": {
+      "type": "string"
+    },
+    "sellerId": {
+      "type": "string"
+    },
+    "sellerName": {
+      "type": "string"
+    },
+    "basePrice": {
+      "javaType": "java.math.BigDecimal",
+      "type": "object"
+    },
+    "specialPrice": {
+      "javaType": "java.math.BigDecimal",
+      "type": "object"
+    },
+    "originalPrice": {
+      "javaType": "java.math.BigDecimal",
+      "type": "object"
+    },
+    "savingAmount": {
+      "javaType": "java.math.BigDecimal",
+      "type": "object"
+    },
+    "promotionEvent": {
+      "type": "string"
+    },
+    "currency": {
+      "type": "string"
+    }
+}
+}

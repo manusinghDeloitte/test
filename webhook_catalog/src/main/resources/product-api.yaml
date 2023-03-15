@@ -1,0 +1,321 @@
+openapi: 3.0.3
+info:
+  title: Mach-Catalog Webhook API
+  description: This holds the Api for Catalog Webhook
+  version: 1.0.0
+tags:
+  - name: Catalog Webhook
+    description: Publishing Product/Price Details
+paths:
+  /product/getProductDetails:
+    post:
+      summary: Webhook
+      operationId: publishProductWebhook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+  /price/getPriceDetails:
+    post:
+      summary: Webhook
+      operationId: publishPriceWebhook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Price'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        price:
+          $ref: '#/components/schemas/Price'
+        id:
+          type: string
+        code:
+          type: string
+        displayName:
+          type: string
+        description:
+          type: string
+        shortDescription:
+          type: string
+        longDescription:
+          type: string
+        brand:
+          type: string
+        subBrand:
+          type: string
+        primaryImages:
+          $ref: '#/components/schemas/Images'
+        baseUOM:
+          type: string
+        saleUOM:
+          type: string
+        weight:
+          type: number
+          format: double
+        weightUOM:
+          type: number
+          format: double
+        seoUrl:
+          type: string
+        status:
+          type: string
+        maxQuantityLimit:
+          type: integer
+        minQuantityLimit:
+          type: integer
+        dimensions:
+          $ref: '#/components/schemas/Dimensions'
+        leadTime:
+          type: integer
+        flags:
+          type: object
+          additionalProperties:
+            type: boolean
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+        createdBy:
+          type: string
+        createdTime:
+          type: integer
+          format: int64
+        modifiedBy:
+          type: string
+        modifiedTime:
+          type: integer
+          format: int64
+        siteTaxonomy:
+          $ref: '#/components/schemas/SiteTaxonomy'
+        primaryTaxonomy:
+          $ref: '#/components/schemas/TaxonomyData'
+        source:
+          type: string
+        grouping:
+          $ref: '#/components/schemas/Grouping'
+        variants:
+          $ref: '#/components/schemas/Variants'
+        baseProduct:
+          type: string
+        categories:
+          type: array
+          items:
+            $ref: '#/components/schemas/Category'
+        keywords:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - code
+        - displayName
+        - description
+        - brand
+        - baseUOM
+        - saleUOM
+        - weight
+        - seoUrl
+        - createdBy
+        - createdTime
+        - primaryTaxonomy
+        - baseProduct
+
+    Images:
+      type: object
+      properties:
+        small:
+          type: string
+        medium:
+          type: string
+        large:
+          type: string
+        thumbnail:
+          type: string
+        icon:
+          type: string
+        rank:
+          type: integer
+        name:
+          type: string
+      required:
+        - name
+
+    Price:
+      type: object
+      properties:
+        itemId:
+          type: string
+        storeNumber:
+          type: string
+        status:
+          type: string
+        priceType:
+          type: string
+        sellerId:
+          type: string
+        sellerName:
+          type: string
+        basePrice:
+          type: number
+        specialPrice:
+          type: number
+        originalPrice:
+          type: number
+        savingAmount:
+          type: number
+        promotionEvent:
+          type: string
+        currency:
+          type: string
+      required:
+        - name
+
+    VariantAttributes:
+      type: object
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+        order:
+          type: integer
+        isPrimary:
+          type: boolean
+        isImage:
+          type: boolean
+      required:
+        - name
+        - value
+
+    VariantItem:
+      type: object
+      properties:
+        itemId:
+          type: string
+        upc:
+          type: string
+        attributes:
+          type: array
+          items:
+            $ref: '#/components/schemas/VariantAttributes'
+      required:
+        - itemId
+        - upc
+
+    PrimaryVariantGroup:
+      type: object
+      properties:
+        groupId:
+          type: string
+        primaryItemId:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/VariantItem'
+      required:
+        - groupId
+        - primaryItemId
+
+    Variants:
+      type: object
+      properties:
+        allGroupIds:
+          type: array
+          items:
+            type: string
+        primaryVariantGroup:
+          $ref: '#/components/schemas/PrimaryVariantGroup'
+
+    Category:
+      type: object
+      properties:
+        categoryId:
+          type: string
+        categoryName:
+          type: string
+        categoryLevel:
+          type: integer
+      required:
+        - categoryId
+        - categoryName
+
+    Grouping:
+      type: object
+      properties:
+        variants:
+          $ref: '#/components/schemas/Variants'
+
+    TaxonomyData:
+      type: object
+      properties:
+        level1:
+          type: object
+        level2:
+          type: object
+        level3:
+          type: object
+        level4:
+          type: object
+        level5:
+          type: object
+        idPath:
+          type: string
+      required:
+        - idPath
+
+    SiteTaxonomy:
+      type: object
+      properties:
+        primaryTaxonomy:
+          $ref: '#/components/schemas/TaxonomyData'
+        alternateTaxonomy:
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxonomyData'
+      required:
+        - primaryTaxonomy
+
+    Dimensions:
+      type: object
+      properties:
+        itemLength:
+          type: number
+          format: double
+        itemWidth:
+          type: number
+          format: double
+        itemHeight:
+          type: number
+          format: double
+        itemWeight:
+          type: number
+          format: double
+        itemDimensionUnit:
+          type: string
+        itemWeightUnit:
+          type: string
+        itemVolume:
+          type: number
+          format: double
+        itemVolumeUnit:
+          type: string

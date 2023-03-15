@@ -1,0 +1,252 @@
+openapi: 3.0.3
+info:
+  title: Mach-Catalog Webhook API
+  description: This holds the Api for Catalog Webhook
+  version: 1.0.0
+tags:
+  - name: Catalog Webhook
+    description: Publishing Product/Price Details
+paths:
+  /product/getProductDetails:
+    post:
+      summary: Webhook
+      operationId: publishProductWebhook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /price/getPriceDetails:
+    post:
+      summary: Webhook
+      operationId: publishPriceWebhook
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Price'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        event:
+          type: array
+          items:
+            type: object
+            properties:
+              action:
+                type: string
+              event_id:
+                type: string
+              event_datetime:
+                type: string
+              author:
+                type: string
+              author_type:
+                type: string
+              pim_source:
+                type: string
+              data:
+                type: object
+                properties:
+                  resource:
+                    type: object
+                    properties:
+                      uuid:
+                        type: string
+                      identifier:
+                        type: string
+                      enabled:
+                        type: boolean
+                      family:
+                        type: string
+                      categories:
+                        type: array
+                        items:
+                          type: string
+                      groups:
+                        items:
+                          type: string
+                      parent:
+                        items:
+                          type: string
+                      values:
+                        type: object
+                        properties:
+                          price:
+                            $ref: '#/components/schemas/Price'
+                          image_1:
+                            type: array
+                            items:
+                              type: object
+                            properties:
+                              locale:
+                                type: string
+                              scope:
+                                type: string
+                              data:
+                                type: string
+                              links:
+                                type: object
+                                properties:
+                                  download:
+                                    type: object
+                                    properties:
+                                      href:
+                                        type: object
+                          name:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                locale:
+                                  type: string
+                                scope:
+                                  type: string
+                                data:
+                                  type: string
+                          description:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                locale:
+                                  type: string
+                                scope:
+                                  type: string
+                                data:
+                                  type: string
+                          display_srgb:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                locale:
+                                  type: string
+                                scope:
+                                  type: string
+                                data:
+                                  type: string
+                          display_color:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                locale:
+                                  type: string
+                                scope:
+                                  type: string
+                                data:
+                                  type: string
+                          response_time:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                locale:
+                                  type: string
+                                scope:
+                                  type: string
+                                data:
+                                  type: string
+                          display_diagonal:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                locale:
+                                  type: string
+                                scope:
+                                  type: string
+                                data:
+                                  type: string
+                      created:
+                        type: string
+                      updated:
+                        type: string
+                      associations:
+                        type: object
+                        properties:
+                          PACK:
+                            type: array
+                            items:
+                              type: object
+                            properties:
+                              product:
+                                type: array
+                                items:
+                                  type: string
+                              product_models:
+                                items:
+                                  type: string
+                              groups:
+                                type: array
+                                items:
+                                  type: string
+                          X_SELL:
+                            type: array
+                            items:
+                              type: object
+                            properties:
+                              product:
+                                type: array
+                                items:
+                                  type: string
+                              product_models:
+                                items:
+                                  type: string
+                              groups:
+                                type: array
+                                items:
+                                  type: string
+                          SUBSTITUTION:
+                            type: array
+                            items:
+                              type: object
+                            properties:
+                              product:
+                                type: array
+                                items:
+                                  type: string
+                              product_models:
+                                items:
+                                  type: string
+                              groups:
+                                type: array
+                                items:
+                                  type: string
+                      quantified_associations:
+                        type: array
+                        items:
+                          type: string
+
+    Price:
+      type: object
+      properties:
+        locale:
+          type: string
+        scope:
+          type: string
+        data:
+          type: object
+          properties:
+            amount:
+              type: string
+            currency:
+              type: string
