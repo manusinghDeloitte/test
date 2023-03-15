@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms1
+  labels:
+    name: ms1
+spec:
+  selector:
+    matchLabels:
+      name: ms1
+  template:
+    metadata:
+      labels:
+        name: ms1
+    spec:
+      containers:
+        - name: ms1
+          image: ms1:v4
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8087
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms1
+  labels:
+    name: ms1
+spec:
+  selector:
+    name: ms1
+  ports:
+  - port: 8087
+
+
