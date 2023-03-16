@@ -46,4 +46,4 @@ spec:
         - name: KAFKA_LISTENERS
           value: PLAINTEXT://:9092
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://kafka-service.default.svc.cluster.local:9092
+          value: PLAINTEXT://kafka-service.mach.svc.cluster.local:9092
